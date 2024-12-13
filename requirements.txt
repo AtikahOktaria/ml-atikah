@@ -1,0 +1,7 @@
+Flask
+tensorflow
+numpy
+pandas
+scikit-surprise
+scikit-learn
+gunicorn
