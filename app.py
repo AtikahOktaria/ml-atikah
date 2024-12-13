@@ -1,12 +1,7 @@
 from flask import Flask, request, jsonify
 import numpy as np
 import tensorflow as tf
-import os
 from google.cloud import firestore
-
-# Set the path to your service account key
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/A C E R/Documents/deploy-ml/paradisata1-7e3027abbaf9.json"
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="serviceacc.json"
 
 app = Flask(__name__)
 
@@ -14,6 +9,8 @@ app = Flask(__name__)
 model = tf.keras.models.load_model("my_svd_model.h5")
 
 # Initialize Firestore client for database 'db-user'
+# Do not set GOOGLE_APPLICATION_CREDENTIALS manually in Cloud Run.
+# Cloud Run will use the default credentials automatically.
 db = firestore.Client(project="paradisata1", database="db-user")
 
 @app.route('/recommend', methods=['GET'])
@@ -48,7 +45,7 @@ def recommend():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+   
 
 @app.route('/load-json-to-firestore', methods=['POST'])
 def load_json_to_firestore():

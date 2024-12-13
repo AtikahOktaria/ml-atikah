@@ -5,3 +5,4 @@ pandas
 scikit-surprise
 scikit-learn
 gunicorn
+google-cloud-firestore
